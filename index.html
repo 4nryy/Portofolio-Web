@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b2250">
+  <script>
+    /* Terapkan tema sebelum halaman digambar agar tidak berkedip */
+    try {
+      var t = localStorage.getItem("tema");
+      if (t !== "terang" && t !== "gelap") t = matchMedia("(prefers-color-scheme: light)").matches ? "terang" : "gelap";
+      document.documentElement.dataset.tema = t;
+    } catch (e) { }
+  </script>
+  <title>Awan Restky - Portofolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <i class="progress" id="progress"></i>
+  <header class="navbar" id="navbar">
+    <a class="logo" href="#beranda"><span class="mark">AR</span><span>Awan<span
+          class="dim">Independent</span></span></a>
+    <button type="button" id="toggle" class="toggle" aria-label="Buka menu" aria-expanded="false"
+      aria-controls="menu"><span></span><span></span><span></span></button>
+    <nav id="menu" class="menu" aria-label="Menu utama">
+      <ul class="menu-list">
+        <li class="has-sub">
+          <button type="button" class="sub-toggle" aria-expanded="false">Karya
+            <svg viewBox="0 0 12 8" width="11" height="8" aria-hidden="true">
+              <path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" />
+            </svg></button>
+          <ul class="sub">
+            <li><a href="#proyek" data-filter="semua">Semua proyek</a></li>
+            <li><a href="#proyek" data-filter="Teknologi">Teknologi</a></li>
+            <li><a href="#proyek" data-filter="Desain">Desain</a></li>
+            <li><a href="#proyek" data-filter="Bisnis">Bisnis</a></li>
+          </ul>
+        </li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#skill">Skill</a></li>
+        <li><a href="#proses">Proses</a></li>
+        <li><a href="#estimasi">Estimasi</a></li>
+        <li><a href="#pendidikan">Pendidikan</a></li>
+      </ul>
+      <div class="auth">
+        <button type="button" class="link-btn" onclick="bukaCV()">CV</button>
+        <button type="button" class="theme-btn" id="tema" aria-label="Ganti ke mode terang" title="Ganti ke mode terang">
+          <svg class="ic ic-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg class="ic ic-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+          </svg>
+        </button>
+        <button type="button" class="btn btn-light" onclick="bukaKontak('pesan')">Hubungi</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="hero-content">
+        <p class="hero-tag"><i class="dot"></i>Sedang Berkuliah</p>
+        <h1>Satu orang, banyak peran</h1>
+        <p class="hero-lead">Awan Restky: dari konfigurasi jaringan sampai melayani pelanggan, sekarang memperdalam
+          software engineering.</p>
+        <div class="cta-row"><button type="button" class="btn btn-light btn-lg" onclick="bukaKontak('pesan')">Ajak Kerja
+            Sama</button><button type="button" class="btn btn-ghost btn-lg" onclick="bukaCV()">Lihat CV</button></div>
+        <p class="hero-note">Geser atau klik peran untuk lihat detailnya.</p>
+      </div>
+      <div class="stage">
+        <div class="slider-ctrl">
+          <button type="button" class="arrow" id="prevPeran" aria-label="Peran sebelumnya">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button type="button" class="arrow" id="nextPeran" aria-label="Peran berikutnya">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
+          </button>
+        </div>
+      <div class="slider" id="slider" tabindex="0" role="region" aria-roledescription="carousel"
+        aria-label="Peran saya. Panah kiri dan kanan untuk berpindah, Enter untuk detail">
+        <div class="bubble" id="bubble" aria-hidden="true"></div>
+        <div class="slider-view">
+          <div class="slider-track" id="track"></div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section class="section" id="tentang">
+      <div class="about">
+        <figure class="photo slot" role="img" aria-label="Foto profil Awan Restky" style="--img:url('Image/Profile/foto%20profil.webp')"></figure>
+        <div>
+          <h2>Bisa mengerjakan sisi teknis, sekaligus bicara dengan pelanggan</h2>
+          <p class="lead">Saya terbiasa bekerja di banyak lini: troubleshoot jaringan di lapangan, mengurus billing,
+            memimpin tim operasional, lalu pulang dan belajar JavaScript. Hasilnya, saya paham masalah dari sisi teknisi
+            dan sisi pelanggan.</p>
+          <ul class="stats">
+            <li><strong data-n="7">0</strong><span>peran dijalani</span></li>
+            <li><strong data-n="6">0</strong><span>proyek terdokumentasi</span></li>
+            <li><strong data-n="3">0</strong><span>bidang: teknologi, desain, bisnis</span></li>
+          </ul>
+          <button type="button" class="btn" style="margin-top:24px" onclick="bukaCV()">Lihat CV lengkap</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="skill">
+      <div class="section-heading">
+        <h2>Skill dan alat yang saya pakai</h2>
+        <p>Klik salah satu untuk melihat level, contoh pemakaian, dan proyek terkait.</p>
+      </div>
+      <div class="chips" id="skillSort" role="group" aria-label="Urutkan skill"></div>
+      <div class="skills" id="skills"></div>
+    </section>
+
+    <section class="section" id="proses">
+      <div class="section-heading">
+        <h2>Cara saya mengerjakan sebuah proyek</h2>
+        <p>Alur yang sama, apa pun bidangnya.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="step-no">1</span>
+          <h3>Pahami kebutuhan</h3>
+          <p>Tanya siapa penggunanya dan apa yang harus selesai, sebelum menyentuh alat apa pun.</p>
+        </li>
+        <li><span class="step-no">2</span>
+          <h3>Kerjakan dan uji</h3>
+          <p>Bangun versi sederhana, coba langsung di lapangan atau di browser, lalu perbaiki.</p>
+        </li>
+        <li><span class="step-no">3</span>
+          <h3>Serahkan dan dokumentasikan</h3>
+          <p>Hasil dikirim lengkap dengan catatan agar mudah dilanjutkan orang lain.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section section-tint" id="proyek">
+      <div class="section-heading">
+        <h2>Proyek yang pernah saya kerjakan</h2>
+        <p>Pilih kategori, lalu klik kartu untuk melihat detail.</p>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter proyek"></div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section class="section calc" id="estimasi">
+      <div class="calc-text">
+        <h2>Hitung perkiraan kebutuhan proyekmu</h2>
+        <p>Pilih jenis pekerjaan dan jumlah hari kerja untuk melihat gambaran biayanya. Angka ini hanya contoh, tarif
+          sebenarnya kita bahas bersama.</p>
+      </div>
+      <div class="calc-box">
+        <label for="jenis">Jenis pekerjaan</label>
+        <select id="jenis">
+          <option value="500000">Pembuatan website</option>
+          <option value="150000">Instalasi dan perbaikan jaringan</option>
+          <option value="100000">Desain poster atau brosur</option>
+          <option value="165000">Administrasi billing dan data</option>
+        </select>
+        <label for="hari">Jumlah hari kerja</label>
+        <input type="number" id="hari" min="0" step="1" value="3" inputmode="numeric">
+        <div class="calc-result" aria-live="polite"><span>Perkiraan biaya</span><strong id="hasil">Rp 750.000</strong>
+        </div>
+        <button type="button" class="btn btn-light" id="kirimEstimasi">Kirim estimasi ini</button>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="pendidikan">
+      <div class="edu">
+        <div>
+          <h2>Mahasiswa TRPL, Politeknik Negeri Batam</h2>
+          <p class="lead">Teknik Rekayasa Perangkat Lunak jenjang D4, mulai 2026. Kampus vokasi yang menekankan praktik
+            dan kebutuhan industri.</p>
+        </div>
+        <ul class="tags">
+          <li>Software engineering</li>
+          <li>Pengembangan web</li>
+          <li>Basis data</li>
+          <li>Pengembangan mobile</li>
+          <li>Manajemen proyek</li>
+          <li>UI/UX</li>
+          <li>Analisis sistem</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about-end" id="kontak">
+      <h2>Punya proyek atau lowongan? Kirim pesan saja.</h2>
+      <p>Saya biasanya membalas dalam satu hari.</p>
+      <div class="cta-row">
+        <button type="button" class="btn btn-light btn-lg" onclick="bukaKontak('pesan')">Tulis pesan</button>
+        <button type="button" class="btn btn-ghost btn-lg" onclick="bukaCV()">Lihat CV</button>
+        <button type="button" class="btn btn-ghost btn-lg" id="salin">Salin email</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Awan Restky. Batam, Kepulauan Riau. <button type="button" class="link-btn inline"
+        onclick="scrollTo({top:0})">Kembali ke atas</button></p>
+  </footer>
+
+  <div class="popup" id="popupKontak" aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="judulKontak" data-mode="pesan">
+      <button type="button" class="close" onclick="tutupKontak()" aria-label="Tutup">&times;</button>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tabPesan" onclick="setMode('pesan')">Pesan</button>
+        <button type="button" role="tab" id="tabKolab" onclick="setMode('kolab')">Kolaborasi</button>
+      </div>
+      <h2 id="judulKontak">Kirim pesan</h2>
+      <form id="formKontak">
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" placeholder="Nama kamu" autocomplete="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Alamat email" autocomplete="email" required>
+        <div class="field-kolab"><label for="tipe">Jenis kerja sama</label>
+          <select id="tipe">
+            <option>Proyek lepas</option>
+            <option>Pekerjaan tetap</option>
+            <option>Magang</option>
+          </select>
+        </div>
+        <label for="isi">Pesan</label>
+        <textarea id="isi" rows="4" placeholder="Ceritakan singkat kebutuhanmu" required></textarea>
+        <button type="submit" class="btn btn-daftar" id="btnKirim">Kirim lewat WhatsApp</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup" id="popupDetail" aria-hidden="true">
+    <div class="popup-content kat" role="dialog" aria-modal="true" aria-labelledby="dNama">
+      <button type="button" class="close" onclick="tutupDetail()" aria-label="Tutup">&times;</button>
+      <div class="kat-head" id="dHead"><span class="kat-sub" id="dSub"></span>
+        <h2 id="dNama"></h2>
+      </div>
+      <div class="kat-body">
+        <p class="kat-label" id="dLabel"></p>
+        <ul class="kat-list" id="dList"></ul>
+        <p class="kat-tip" id="dTip"></p>
+        <button type="button" class="btn btn-daftar" id="dAksi"></button>
+        <div class="kat-switch" id="dSwitch" role="group" aria-label="Pindah peran"></div>
+      </div>
+    </div>
+  </div>
+  <div class="popup" id="popupSkill" aria-hidden="true">
+    <div class="popup-content skill" role="dialog" aria-modal="true" aria-labelledby="sNama">
+      <button type="button" class="close" onclick="tutupSkill()" aria-label="Tutup">&times;</button>
+      <div class="s-top">
+        <div class="ring"><svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="44" />
+            <circle id="sArc" class="arc" cx="50" cy="50" r="44" pathLength="100" />
+          </svg><strong id="sPct">0%</strong></div>
+        <div><span class="kat-sub" id="sKat"></span>
+          <h2 id="sNama"></h2>
+        </div>
+      </div>
+      <ol class="levels" id="sLevels" aria-label="Tingkat kemampuan"></ol>
+      <p class="s-desc" id="sDesc"></p>
+      <ul class="checks" id="sPoin"></ul>
+      <p class="kat-label">Dipakai untuk</p>
+      <div class="tabs s-tabs" id="sTabs" role="tablist"></div>
+      <p class="s-use" id="sUse" aria-live="polite"></p>
+      <ul class="tags" id="sTags"></ul>
+      <div class="kat-switch" id="sProyek"></div>
+      <div class="s-nav"><button type="button" class="btn-nav" id="sPrev">Sebelumnya</button><button type="button"
+          class="btn-nav" id="sNext">Berikutnya</button></div>
+    </div>
+  </div>
+  <div class="popup" id="popupCV" aria-hidden="true">
+    <div class="popup-content cv" role="dialog" aria-modal="true" aria-labelledby="cvJudul">
+      <button type="button" class="close" onclick="tutupCV()" aria-label="Tutup">&times;</button>
+      <h2 id="cvJudul">CV Awan Restky</h2>
+      <div class="cv-actions">
+        <a class="btn btn-light" id="cvUnduh" download>Unduh PDF</a>
+        <a class="btn btn-ghost" id="cvTab" target="_blank" rel="noopener">Buka di tab baru</a>
+      </div>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tabRingkas">Ringkasan</button>
+        <button type="button" role="tab" id="tabPdf">Dokumen PDF</button>
+      </div>
+      <div id="cvRingkas">
+        <p class="lead" id="cvSumm"></p>
+        <div class="chips" id="cvFilter" role="group" aria-label="Filter CV"></div>
+        <div class="gantt-axis" id="cvAxis" aria-hidden="true"></div>
+        <div id="cvGantt"></div>
+      </div>
+      <div id="cvPdf" hidden></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
